@@ -144,12 +144,41 @@
                 <v-tabs-window-item :key="2" :value="2">
                     <v-card class="pb-12">
                         <v-card-text>
-                            <div>
-                                <div v-for="attribute in character.attributes" class="">
-                                    {{ attribute.name }} {{ attribute.score }} {{ attribute.bonus }} {{
-                                        calculateAttributeModifier(attribute.score, attribute.bonus) }}
+
+                            <div class="grid grid-cols-3 gap-x-4 gap-y-12 mt-8">
+                                <div v-for="attribute in character.attributes" :key="attribute.name" class="border w-full h-24 relative rounded-lg">
+                                    <div class="absolute inset-x-0 -top-4 flex justify-center  text-xl uppercase font-extrabold">
+                                        <v-card class="border px-1 rounded-md text-gray-300">{{ getFirstThreeLetters(attribute.name) }}</v-card>
+                                    </div>
+                                    <div class="h-full flex flex-col justify-center items-center">
+                                        <div class="font-bold text-4xl">{{ calculateAttributeModifier(attribute.score, attribute.bonus) }}</div>
+                                    </div>
+                                    <div class="absolute inset-x-0 -bottom-3 flex justify-center ">
+                                        <v-card class="border px-2 rounded-md text-gray-400">{{ calculateSavingThrowBonus(attribute) }}</v-card>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- <table class="min-w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="py-2">Attribute</th>
+                                        <th class="py-2">Score</th>
+                                        <th class="py-2">Bonus</th>
+                                        <th class="py-2">Modifier</th>
+                                        <th class="py-2">JdS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="attribute in character.attributes" :key="attribute.name">
+                                        <td class="py-2">{{ attribute.name }}</td>
+                                        <td class="py-2">{{ attribute.score }}</td>
+                                        <td class="py-2">{{ attribute.bonus }}</td>
+                                        <td class="py-2">{{ calculateAttributeModifier(attribute.score, attribute.bonus) }}</td>
+                                        <td class="py-2">{{ calculateSavingThrowBonus(attribute) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
                         </v-card-text>
                     </v-card>
                 </v-tabs-window-item>
@@ -223,6 +252,9 @@ export default {
         character: Object
     },
     methods: {
+        getFirstThreeLetters(name) {
+            return name.substring(0, 3);
+        },
         calculateProficiency(character) {
             if (character.level >= 1 && character.level <= 4) return 2;
             if (character.level >= 5 && character.level <= 8) return 3;
@@ -251,6 +283,11 @@ export default {
         },
         calculateAttributeModifier(score, bonus = 0) {
             return Math.floor((score - 10) / 2) + bonus;
+        },
+        calculateSavingThrowBonus(attribute) {
+            const attributeModifier = this.calculateAttributeModifier(attribute.score, attribute.bonus);
+            const proficiencyBonus = attribute.proficiency ? this.calculateProficiency(this.character) : 0;
+            return attributeModifier + proficiencyBonus;
         },
         calculateSkillBonus(skill) {
             const attribute = this.findAttribute(this.character, skill.base_attribute);
