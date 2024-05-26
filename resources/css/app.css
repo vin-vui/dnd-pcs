@@ -5,3 +5,11 @@
 [x-cloak] {
     display: none;
 }
+
+.v-field__input {
+    background-color: transparent!important;
+}
+.v-field__input:focus {
+    outline: none!important;
+    box-shadow: none!important;;
+}

@@ -23,4 +23,13 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::resource('characters', CharacterController::class);
+    Route::post('/characters/{character}/edit', [CharacterController::class, 'update'])->name('characters.update');
+    Route::post('/characters/{character}/skills', [CharacterController::class, 'storeSkill'])->name('characters.skills.store');
+
+    Route::get('/characters/{character}/traits', [CharacterController::class, 'editTrait'])->name('characters.traits.edit');
+    Route::post('/characters/{character}/traits', [CharacterController::class, 'storeTrait'])->name('characters.traits.store');
+
+    Route::get('/characters/{character}/attributes', [CharacterController::class, 'editAttribute'])->name('characters.attributes.edit');
+    Route::post('/characters/{character}/attributes', [CharacterController::class, 'storeAttribute'])->name('characters.attributes.store');
+
 });

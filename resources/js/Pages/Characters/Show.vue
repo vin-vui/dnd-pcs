@@ -11,7 +11,7 @@
                         <div class="">
                             <div class="flex items-center gap-4 mt-2">
                                 <div class="absolute right-4 top-4">
-                                    <v-btn icon="$vuetify">
+                                    <v-btn icon="$vuetify" @click="update">
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M18 20.813v124.062c29.144 25.523 57.37 49.464 84.375 71.563c5.023-1.894 14.962-7.8 25.688-16.188c11.8-9.23 25.18-21.31 37.875-34.03c12.693-12.724 24.73-26.115 33.906-37.876c8.405-10.775 14.297-20.736 16.094-25.563c-21.434-26.277-44.613-53.706-69.313-81.968zm211.03 98.156c-3.632 6.475-8.583 13.33-14.468 20.874c-9.812 12.578-22.258 26.385-35.406 39.562c-13.147 13.178-26.967 25.687-39.594 35.563c-7.574 5.923-14.48 10.928-21.03 14.593a2415 2415 0 0 0 23.812 18.906l-.47-1.75c3.795-1.018 13.79-6.738 24.595-15.19c10.804-8.45 23.076-19.55 34.718-31.218c11.64-11.668 22.69-23.948 31.093-34.718c8.055-10.325 13.58-19.86 14.876-23.813a2474 2474 0 0 0-18.125-22.81zm31 39.436c-3.33 5.84-7.777 11.954-13.03 18.688c-9.04 11.587-20.498 24.314-32.594 36.437c-12.095 12.125-24.805 23.622-36.437 32.72c-7.382 5.773-14.058 10.626-20.44 14.063a1894 1894 0 0 0 21.69 16.468c4.76-2.366 12.16-6.993 20-13.124c10.512-8.222 22.447-19.016 33.78-30.375c11.333-11.357 22.075-23.3 30.25-33.78c6.05-7.755 10.62-15.072 12.97-19.75a2017 2017 0 0 0-16.19-21.344zm26.658 40.813c-2.536 3.743-5.462 7.644-8.688 11.78c-8.812 11.296-19.964 23.687-31.75 35.5s-24.192 23.006-35.53 31.875c-4.06 3.174-7.9 6.046-11.595 8.563l94.28 141.28c43.757-7.75 105.398 16.894 158.595 66.063l14.438-14.436L347.094 360.5c-11.034 5.484-24.775 3.663-33.97-5.53c-11.517-11.52-11.517-30.202 0-41.72c11.52-11.518 30.202-11.518 41.72 0c9.218 9.218 11.038 23.014 5.5 34.063l119.312 119.312l14.47-14.47c-49.17-53.196-73.847-114.806-66.095-158.56L286.69 199.218z"/></svg>
                                     </v-btn>
                                 </div>
@@ -25,7 +25,7 @@
                                     <div class="text-xs text-gray-400">{{ character.alignment }}</div>
                                 </div>
                             </div>
-                            <v-card class="absolute w-36 text-center -bottom-10 bg-white">
+                            <v-card class="absolute w-36 text-center -bottom-10 bg-white" @click="updateTraits">
                                 <div class="border py-1 uppercase font-bold tracking-widest text-sm">attributs</div>
                             </v-card>
                             <div class="flex flex-col gap-8 mt-6 pt-12 border-t">
@@ -153,7 +153,7 @@
                                     </v-card>
                                 </div>
                             </div>
-                            <v-card class="absolute w-36 text-center -bottom-12 bg-white">
+                            <v-card class="absolute w-36 text-center -bottom-12 bg-white" @click="updateAttributes">
                                 <div class="border py-1 uppercase font-bold tracking-widest text-sm">modificateurs</div>
                             </v-card>
                             <div class="grid grid-cols-3 gap-x-2 gap-y-12 mt-8 pt-12 border-t">
@@ -263,7 +263,7 @@ export default {
             if (character.level >= 5 && character.level <= 8) return 3;
             if (character.level >= 9 && character.level <= 12) return 4;
             if (character.level >= 13 && character.level <= 16) return 5;
-            if (character.level >= 17 && character.level <= 20) return 6;
+            if (character.level >= 17) return 6;
             return 2;
         },
         calculateSpellModifier(character, includeBase) {
@@ -298,6 +298,15 @@ export default {
             const proficiencyBonus = skill.proficiency ? this.calculateProficiency(this.character) : 0;
             const expertiseBonus = skill.expertise ? this.calculateProficiency(this.character) : 0;
             return attributeModifier + proficiencyBonus + expertiseBonus;
+        },
+        updateTraits() {
+            this.$inertia.visit(route('characters.traits.edit', this.character));
+        },
+        updateAttributes() {
+            this.$inertia.visit(route('characters.attributes.edit', this.character));
+        },
+        update() {
+            this.$inertia.visit(route('characters.edit', this.character));
         },
     }
 };

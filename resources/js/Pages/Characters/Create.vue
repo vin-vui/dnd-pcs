@@ -1,101 +1,58 @@
 <template>
     <v-layout>
-
         <Menu curent="Nouveau Personnage"></Menu>
-
         <v-main>
-            <form @submit.prevent="submit">
-                <!-- Image -->
+            <form @submit.prevent="submit" class="py-12 px-4 flex flex-col gap-4">
                 <div class="flex flex-col justify-start basis-1/2">
-                    <InputLabel value="Image" />
-                    <input type="file" accept="image/jpeg, image/png, image/svg, image/webp" ref="photo"
-                        @change="previewImg">
-                    <img v-if="previewImage" :src="previewImage"
-                        class="object-contain bg-cover w-full mt-4 p-2 rounded-md" />
-                    <img v-if="!previewImage" class="h-96 object-contain bg-cover w-full mt-4 p-2 rounded-md" />
+                    <div class="flex items-center">
+                        <v-avatar color="surface-variant" v-if="previewImage" size="100" class="-mt-6">
+                            <v-img :src="previewImage"></v-img>
+                        </v-avatar>
+                        <v-avatar color="surface-variant" v-if="!previewImage" size="100" class="-mt-6">
+                        </v-avatar>
+                        <v-file-input clearable label="Avatar" variant="outlined" counter show-size ref="photo"
+                            @change="previewImg" accept="image/jpeg, image/png, image/svg, image/webp"></v-file-input>
+                    </div>
                     <InputError :message="form.errors.image" />
                 </div>
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700">Name</label>
-                    <input type="text" id="name" v-model="form.name"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <div class="">
+                    <v-text-field label="Nom" variant="outlined" v-model="form.name"></v-text-field>
                     <InputError :message="form.errors.name" />
                 </div>
-                <div class="mb-4">
-                    <label for="race" class="block text-gray-700">Race</label>
-                    <input type="text" id="race" v-model="form.race"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <div class="">
+                    <v-text-field label="Race" variant="outlined" v-model="form.race"></v-text-field>
                     <InputError :message="form.errors.race" />
                 </div>
-                <div class="mb-4">
-                    <label for="class" class="block text-gray-700">Class</label>
-                    <input type="text" id="class" v-model="form.class"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <div class="">
+                    <v-text-field label="Classe" variant="outlined" v-model="form.class"></v-text-field>
                     <InputError :message="form.errors.class" />
                 </div>
-                <div class="mb-4">
-                    <label for="background" class="block text-gray-700">Background</label>
-                    <input type="text" id="background" v-model="form.background"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <div class="">
+                    <v-text-field label="Historique" variant="outlined" v-model="form.background"></v-text-field>
                     <InputError :message="form.errors.background" />
                 </div>
-                <div class="mb-4">
-                    <label for="alignment" class="block text-gray-700">Alignment</label>
-                    <input type="text" id="alignment" v-model="form.alignment"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <div class="">
+                    <v-select label="Alignement" :items="alignments" variant="outlined" clearable
+                        v-model="form.alignment"></v-select>
                     <InputError :message="form.errors.alignment" />
-                </div>
-                <div class="mb-4">
-                    <label for="level" class="block text-gray-700">Level</label>
-                    <input type="number" id="level" v-model="form.level"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                </div>
-                <div class="mb-4">
-                    <label for="armor_class" class="block text-gray-700">Armor Class</label>
-                    <input type="number" id="armor_class" v-model="form.armor_class"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                    <InputError :message="form.errors.armor_class" />
-                </div>
-                <div class="mb-4">
-                    <label for="max_hit_points" class="block text-gray-700">Max Hit Points</label>
-                    <input type="number" id="max_hit_points" v-model="form.max_hit_points"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                    <InputError :message="form.errors.max_hit_points" />
-                </div>
-                <div class="mb-4">
-                    <label for="speed" class="block text-gray-700">Speed</label>
-                    <input type="number" id="speed" v-model="form.speed"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                    <InputError :message="form.errors.speed" />
-                </div>
-                <div class="mb-4">
-                    <label for="spellcasting_ability" class="block text-gray-700">Spellcasting Ability</label>
-                    <input type="text" id="spellcasting_ability" v-model="form.spellcasting_ability"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    <InputError :message="form.errors.spellcasting_ability" />
-                </div>
-                <div class="mb-4">
-                    <label for="hit_dice" class="block text-gray-700">Hit Dice</label>
-                    <input type="text" id="hit_dice" v-model="form.hit_dice"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                    <InputError :message="form.errors.hit_dice" />
                 </div>
                 <button :loading="form.processing" :disabled="form.processing" @click="submit" type="submit"
                     class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
             </form>
         </v-main>
-
     </v-layout>
 </template>
 
 <script>
-import InputError from '@/Components/InputError.vue'
+import InputError from '@/Components/InputError.vue';
 import Menu from '@/Components/Menu.vue';
+import { VNumberInput } from 'vuetify/labs/VNumberInput';
 
 export default {
     components: {
         InputError,
-        Menu
+        Menu,
+        VNumberInput,
     },
     data() {
         return {
@@ -114,10 +71,27 @@ export default {
                 image: null,
             }),
             previewImage: '',
-            customMessages: [
-                'Delete Token',
-                'Are you sure?',
-                'Done!'
+            alignments: [
+                'Lawful Good',
+                'Neutral Good',
+                'Chaotic Good',
+                'Lawful Neutral',
+                'True Neutral',
+                'Chaotic Neutral',
+                'Lawful Evil',
+                'Neutral Evil',
+                'Chaotic Evil',
+            ],
+            abilities: [
+                'wisdom',
+                'charisma',
+                'intelligence'
+            ],
+            dices: [
+                6,
+                8,
+                10,
+                12
             ],
         };
     },
@@ -129,15 +103,12 @@ export default {
                 }
             }
             this.form.post(route('characters.store'), {
-                preserveState: (page) => Object.keys(page.props.errors).length
-            })
+                preserveState: (page) => Object.keys(page.props.errors).length,
+            });
         },
         previewImg(e) {
             this.previewImage = URL.createObjectURL(e.target.files[0]);
         },
-        backToList() {
-            this.$inertia.visit(route('characters.index'));
-        }
     },
 };
 </script>

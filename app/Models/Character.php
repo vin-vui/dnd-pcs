@@ -10,7 +10,7 @@ class Character extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'race', 'class', 'background', 'alignment', 'level', 'experience_points', 'image', 'user_id'
+        'name', 'race', 'class', 'background', 'alignment', 'level', 'experience_points', 'armor_class', 'speed', 'max_hit_points','image', 'hit_dice', 'spellcasting_ability', 'user_id'
     ];
 
     protected static function booted()
