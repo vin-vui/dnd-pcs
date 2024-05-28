@@ -19,7 +19,7 @@
                     <InputError :message="form.errors.speed" />
                 </div>
                 <div class="">
-                    <v-select label="Caractéristique de sorts" :items="abilities" variant="outlined" v-model="form.spellcasting_ability"></v-select>
+                    <v-select label="Caractéristique de sorts" :items="abilities" item-value="value" item-title="text" variant="outlined" v-model="form.spellcasting_ability"></v-select>
                     <InputError :message="form.errors.spellcasting_ability" />
                 </div>
                 <div class="">
@@ -73,9 +73,9 @@ export default {
     },
     created() {
         this.abilities = [
-            this.$t('attributes.wisdom'),
-            this.$t('attributes.charisma'),
-            this.$t('attributes.intelligence')
+            { text: this.$t('attributes.wisdom'), value: 'wisdom' },
+            { text: this.$t('attributes.charisma'), value: 'charisma' },
+            { text: this.$t('attributes.intelligence'), value: 'intelligence' }
         ];
     },
     methods: {
