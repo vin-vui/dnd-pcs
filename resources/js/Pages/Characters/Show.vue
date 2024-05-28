@@ -337,7 +337,7 @@ export default {
             this.form.post(route('characters.notes.update', this.character), {
                 preserveState: true,
                 onSuccess: () => {
-                    this.snackbarMessage = this.$t(notesSavedSuccessfully);
+                    this.snackbarMessage = this.$t('notesSavedSuccessfully');
                     this.snackbar = true;
                 },
             });
