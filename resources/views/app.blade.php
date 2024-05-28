@@ -11,10 +11,17 @@
         <link rel="shortcut icon" href="https://herocompanion.vinvui.com/favicon.ico" type="image/x-icon">
         <link rel='manifest' href='https://herocompanion.vinvui.com/manifest.json'>
 
-        <meta property="og:locale" content="en_EN">
+        <!-- iPhone X (1125px x 2436px) -->
+        <link href="https://herocompanion.vinvui.com/assets/logo/logo@1024.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
+        <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+        <link href="https://herocompanion.vinvui.com/assets/logo/logo@1024.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+        <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+        <link href="https://herocompanion.vinvui.com/assets/logo/logo@1024.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
+
+        <meta property="og:locale" content="fr_FR">
         <meta property="og:type" content="website">
         <meta property="og:title" content="Hero Companion">
-        <meta property="og:description" content="Brew Tracking App">
+        <meta property="og:description" content="Hero Companion est une application mobile de gestion de fiches de personnage pour le plus célèbre jeu de rôle papier. Gérez vos personnages, suivez leurs attributs et compétences en temps réel avec une interface intuitive et moderne.">
         <meta property="og:url" content="https://herocompanion.vinvui.com">
         <meta property="og:site_name" content="Hero Companion">
         <meta property="og:image" content="https://herocompanion.vinvui.com/assets/logo/logo@512.png">

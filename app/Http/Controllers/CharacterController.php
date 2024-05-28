@@ -6,7 +6,6 @@ use Inertia\Inertia;
 use App\Models\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 class CharacterController extends Controller
 {

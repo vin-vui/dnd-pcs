@@ -34,6 +34,18 @@
       "purpose": "maskable any"
     }
   ],
+  "splash_screens": [
+    {
+      "src": "https://herocompanion.vinvui.com/assets/logo/logo@512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "https://herocompanion.vinvui.com/assets/logo/logo@1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
   "lang": "fr",
   "url": "https://herocompanion.vinvui.com/",
   "manifestUrl": "https://herocompanion.vinvui.com/manifest.json"
