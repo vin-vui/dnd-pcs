@@ -1,17 +1,10 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\CharacterController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('characters.index');
 });
 
 Route::middleware([
@@ -19,9 +12,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
     Route::resource('characters', CharacterController::class);
     Route::post('/characters/{character}/edit', [CharacterController::class, 'update'])->name('characters.update');
 
@@ -35,5 +25,4 @@ Route::middleware([
     Route::post('/characters/{character}/attributes', [CharacterController::class, 'storeAttribute'])->name('characters.attributes.store');
 
     Route::post('/characters/{character}/notes', [CharacterController::class, 'updateNotes'])->name('characters.notes.update');
-
 });
