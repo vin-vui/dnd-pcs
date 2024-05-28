@@ -183,7 +183,7 @@
                                 <v-card class="text-lg font-semibold text-gray-500 justify-self-center border w-10 text-center">
                                     {{ calculateSkillBonus(skill) }}
                                 </v-card>
-                                <div v-if="skill.expertise || skill.proficiency" class="justify-self-end py-2 -my-2 pl-3 pr-2 -mr-2 rounded-l-full" :class="index % 2 != 0 ? 'bg-[#121212]' : ''">
+                                <div v-if="skill.expertise || skill.proficiency" class="justify-self-end py-2 -my-2 pl-3 pr-2 -mr-2 rounded-l-full">
                                     <span v-if="skill.expertise" class="text-[#FFD700]">
                                         <!-- Expertise Icon -->
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" width="32"
@@ -337,7 +337,7 @@ export default {
             this.form.post(route('characters.notes.update', this.character), {
                 preserveState: true,
                 onSuccess: () => {
-                    this.snackbarMessage = this.$t('notesSavedSuccessfully');
+                    this.snackbarMessage = this.$t(notesSavedSuccessfully);
                     this.snackbar = true;
                 },
             });

@@ -62,11 +62,7 @@ export default {
                 spellcasting_ability: this.character.spellcasting_ability,
                 hit_dice: this.character.hit_dice,
             }),
-            abilities: [
-                'wisdom',
-                'charisma',
-                'intelligence'
-            ],
+            abilities: [],
             dices: [
                 6,
                 8,
@@ -74,6 +70,13 @@ export default {
                 12
             ],
         };
+    },
+    created() {
+        this.abilities = [
+            this.$t('attributes.wisdom'),
+            this.$t('attributes.charisma'),
+            this.$t('attributes.intelligence')
+        ];
     },
     methods: {
         submit() {

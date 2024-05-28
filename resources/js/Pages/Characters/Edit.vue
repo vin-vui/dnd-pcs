@@ -72,33 +72,36 @@
           image: null,
         }),
         preview: this.character.image,
-        alignments: [
-          "Lawful Good",
-          "Neutral Good",
-          "Chaotic Good",
-          "Lawful Neutral",
-          "True Neutral",
-          "Chaotic Neutral",
-          "Lawful Evil",
-          "Neutral Evil",
-          "Chaotic Evil",
-        ],
+        alignments: [],
       };
+    },
+    created() {
+        this.alignments = [
+            this.$t('alignments.lawful_good'),
+            this.$t('alignments.neutral_good'),
+            this.$t('alignments.chaotic_good'),
+            this.$t('alignments.lawful_neutral'),
+            this.$t('alignments.true_neutral'),
+            this.$t('alignments.chaotic_neutral'),
+            this.$t('alignments.lawful_evil'),
+            this.$t('alignments.neutral_evil'),
+            this.$t('alignments.chaotic_evil')
+        ];
     },
     methods: {
       submit() {
         this.form.post(route("characters.update", this.character.id), {
-          preserveState: (page) => Object.keys(page.props.errors).length,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+            preserveState: (page) => Object.keys(page.props.errors).length,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
         });
       },
       previewImg(e) {
         const file = e.target.files[0];
         if (file) {
-          this.preview = URL.createObjectURL(file);
-          this.form.image = file;
+            this.preview = URL.createObjectURL(file);
+            this.form.image = file;
         }
       },
       back() {
