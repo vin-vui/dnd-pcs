@@ -108,14 +108,57 @@ class CharacterController extends Controller
 
     public function storeAttribute(Request $request, Character $character)
     {
-        // dd($request->all()['attributes']);
+        $data = $request->validate([
+            'attributes' => 'required|array',
+            'attributes.*.score' => 'required|integer',
+            'attributes.*.bonus' => 'required|integer',
+        ]);
 
-        foreach ($request->all()['attributes'] as $key => $value) {
-            $attribute = $character->attributes()->find($key);
-            $attribute->update(['score' => $value]);
+        foreach ($data['attributes'] as $id => $attribute) {
+            $characterAttribute = $character->attributes()->find($id);
+            if ($characterAttribute) {
+                $characterAttribute->update([
+                    'score' => $attribute['score'],
+                    'bonus' => $attribute['bonus'],
+                ]);
+            }
         }
 
         return redirect()->route('characters.show', $character);
+    }
+
+    public function editSkill(Character $character)
+    {
+        $character = $character->load('skills');
+        return Inertia::render('Characters/EditSkills', compact('character'));
+    }
+
+    public function storeSkill(Request $request, Character $character)
+    {
+        $data = $request->validate([
+            'skills' => 'required|array',
+        ]);
+
+        foreach ($data['skills'] as $id => $skill) {
+            $characterSkill = $character->skills()->find($id);
+            if ($characterSkill) {
+                $characterSkill->update([
+                    'proficiency' => $skill['proficiency'],
+                    'expertise' => $skill['expertise'],
+                ]);
+            }
+        }
+
+        return redirect()->route('characters.show', $character);
+    }
+
+    public function updateNotes(Request $request, Character $character)
+    {
+        $data = $request->validate([
+            'notes' => 'nullable|string',
+        ]);
+
+        $character->update($data);
     }
 
 }

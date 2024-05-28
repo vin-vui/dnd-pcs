@@ -3,15 +3,14 @@
         <Menu curent="Nouveau Personnage"></Menu>
         <v-main>
             <form @submit.prevent="submit" class="py-12 px-4 flex flex-col gap-4">
-                <div class="flex flex-col justify-start basis-1/2">
-                    <div class="flex items-center">
+                <div class="">
+                    <div class="flex items-center gap-4">
                         <v-avatar color="surface-variant" v-if="previewImage" size="100" class="-mt-6">
                             <v-img :src="previewImage"></v-img>
                         </v-avatar>
                         <v-avatar color="surface-variant" v-if="!previewImage" size="100" class="-mt-6">
                         </v-avatar>
-                        <v-file-input clearable label="Avatar" variant="outlined" counter show-size ref="photo"
-                            @change="previewImg" accept="image/jpeg, image/png, image/svg, image/webp"></v-file-input>
+                        <v-file-input clearable label="Avatar" variant="outlined" counter show-size ref="photo" @change="previewImg" accept="image/jpeg, image/png, image/svg, image/webp"></v-file-input>
                     </div>
                     <InputError :message="form.errors.image" />
                 </div>
@@ -32,12 +31,10 @@
                     <InputError :message="form.errors.background" />
                 </div>
                 <div class="">
-                    <v-select label="Alignement" :items="alignments" variant="outlined" clearable
-                        v-model="form.alignment"></v-select>
+                    <v-select label="Alignement" :items="alignments" variant="outlined" v-model="form.alignment"></v-select>
                     <InputError :message="form.errors.alignment" />
                 </div>
-                <button :loading="form.processing" :disabled="form.processing" @click="submit" type="submit"
-                    class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                <v-btn :disabled="form.processing" :loading="form.processing" color="indigo-darken-3" size="x-large" variant="flat" block type="submit">valider</v-btn>
             </form>
         </v-main>
     </v-layout>
@@ -81,17 +78,6 @@ export default {
                 'Lawful Evil',
                 'Neutral Evil',
                 'Chaotic Evil',
-            ],
-            abilities: [
-                'wisdom',
-                'charisma',
-                'intelligence'
-            ],
-            dices: [
-                6,
-                8,
-                10,
-                12
             ],
         };
     },

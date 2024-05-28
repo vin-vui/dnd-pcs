@@ -117,7 +117,7 @@
                                         </div>
                                         <div class="h-full flex flex-col justify-between items-center">
                                             <div class="mt-4"></div>
-                                            <div class="font-bold uppercase text-3xl">{{ getFirstThreeLetters(character.spellcasting_ability) }}</div>
+                                            <div class="font-bold uppercase text-3xl">{{ getFirstThreeLetters($t(`attributes.${character.spellcasting_ability}`)) }}</div>
                                             <div class="text-xs text-gray-400">Carac. Sorts</div>
                                         </div>
                                     </v-card>
@@ -159,7 +159,7 @@
                             <div class="grid grid-cols-3 gap-x-2 gap-y-12 mt-8 pt-12 border-t">
                                 <div v-for="attribute in character.attributes" :key="attribute.name" class="border w-full h-24 relative rounded-lg">
                                     <div class="absolute inset-x-0 -top-4 flex justify-center  text-xl uppercase font-extrabold">
-                                        <v-card class="border px-1 rounded-md text-gray-300">{{ getFirstThreeLetters(attribute.name) }}</v-card>
+                                        <v-card class="border px-1 rounded-md text-gray-300">{{ getFirstThreeLetters($t(`attributes.${attribute.name}`)) }}</v-card>
                                     </div>
                                     <div class="h-full flex flex-col justify-center items-center">
                                         <div class="font-bold text-4xl">{{ calculateAttributeModifier(attribute.score, attribute.bonus) }}</div>
@@ -174,12 +174,12 @@
                 </v-tabs-window-item>
                 <v-tabs-window-item :key="2" :value="2">
                     <div class="pb-24 pt-8 px-4">
-                        <v-card class="absolute w-36 text-center -bottom-4 bg-white text-sm">
+                        <v-card class="absolute w-36 text-center -bottom-4 bg-white text-sm" @click="updateSkills">
                             <div class="border py-1 uppercase font-bold tracking-widest">Compétences</div>
                         </v-card>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-12 border-t">
                             <div v-for="(skill, index) in character.skills" :key="index" class="grid grid-cols-4 items-center pl-4 pr-2 py-1 rounded-full" :class="index % 2 != 0 ? 'bg-white' : ''">
-                                <div class="text-lg font-semibold capitalize whitespace-nowrap col-span-2">{{ skill.name }}</div>
+                                <div class="text-lg font-semibold whitespace-nowrap col-span-2">{{ $t(`skills.${skill.name}`) }}</div>
                                 <v-card class="text-lg font-semibold text-gray-500 justify-self-center border w-10 text-center">
                                     {{ calculateSkillBonus(skill) }}
                                 </v-card>
@@ -206,11 +206,16 @@
                     </div>
                 </v-tabs-window-item>
                 <v-tabs-window-item :key="3" :value="3">
-                    <v-card class="pb-12">
+                    <v-card class="mt-12 mb-24 pt-6 pb-2">
                         <v-card-text>
-                            <div>
-                                notes
-                            </div>
+                            <v-textarea
+                            v-model="form.notes"
+                            label="Notes"
+                            auto-grow
+                            variant="outlined"
+                            rows="20"
+                            @input="autoSave"
+                            ></v-textarea>
                         </v-card-text>
                     </v-card>
                 </v-tabs-window-item>
@@ -234,6 +239,16 @@
                 </v-tab>
             </v-tabs>
 
+            <v-snackbar v-model="snackbar"
+                bottom right
+                :timeout="2000"
+                color="success"
+                variant="tonal"
+                location="top center"
+            >
+                {{ snackbarMessage }}
+            </v-snackbar>
+
         </v-main>
 
     </v-layout>
@@ -249,6 +264,11 @@ export default {
     data() {
         return {
             tabs: null,
+            form: this.$inertia.form({
+                notes: this.character.notes,
+            }),
+            snackbar: false,
+            snackbarMessage: '',
         }
     },
     props: {
@@ -285,7 +305,7 @@ export default {
             return character.skills.find(skill => skill.skill_name.toLowerCase() === skillName.toLowerCase());
         },
         calculateAttributeModifier(score, bonus = 0) {
-            return Math.floor((score - 10) / 2) + bonus;
+            return Math.floor(((score + bonus) - 10) / 2);
         },
         calculateSavingThrowBonus(attribute) {
             const attributeModifier = this.calculateAttributeModifier(attribute.score, attribute.bonus);
@@ -305,8 +325,20 @@ export default {
         updateAttributes() {
             this.$inertia.visit(route('characters.attributes.edit', this.character));
         },
+        updateSkills() {
+            this.$inertia.visit(route('characters.skills.edit', this.character));
+        },
         update() {
             this.$inertia.visit(route('characters.edit', this.character));
+        },
+        autoSave() {
+            this.form.post(route('characters.notes.update', this.character), {
+                preserveState: true,
+                onSuccess: () => {
+                    this.snackbarMessage = this.$t('notesSavedSuccessfully');
+                    this.snackbar = true;
+                },
+            });
         },
     }
 };

@@ -10,7 +10,7 @@ class Character extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'race', 'class', 'background', 'alignment', 'level', 'experience_points', 'armor_class', 'speed', 'max_hit_points','image', 'hit_dice', 'spellcasting_ability', 'user_id'
+        'name', 'race', 'class', 'background', 'alignment', 'level', 'experience_points', 'armor_class', 'speed', 'max_hit_points','image', 'hit_dice', 'spellcasting_ability', 'notes', 'user_id'
     ];
 
     protected static function booted()
@@ -32,7 +32,7 @@ class Character extends Model
 
             $defaultSkills = [
                 ['name' => 'acrobatics', 'base_attribute' => 'dexterity', 'proficiency' => false, 'expertise' => false],
-                ['name' => 'animal handling', 'base_attribute' => 'wisdom', 'proficiency' => false, 'expertise' => false],
+                ['name' => 'animal_handling', 'base_attribute' => 'wisdom', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'arcana', 'base_attribute' => 'intelligence', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'athletics', 'base_attribute' => 'strength', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'deception', 'base_attribute' => 'charisma', 'proficiency' => false, 'expertise' => false],
@@ -46,7 +46,7 @@ class Character extends Model
                 ['name' => 'performance', 'base_attribute' => 'charisma', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'persuasion', 'base_attribute' => 'charisma', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'religion', 'base_attribute' => 'intelligence', 'proficiency' => false, 'expertise' => false],
-                ['name' => 'sleight of hand', 'base_attribute' => 'dexterity', 'proficiency' => false, 'expertise' => false],
+                ['name' => 'sleight_of_hand', 'base_attribute' => 'dexterity', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'stealth', 'base_attribute' => 'dexterity', 'proficiency' => false, 'expertise' => false],
                 ['name' => 'survival', 'base_attribute' => 'wisdom', 'proficiency' => false, 'expertise' => false],
             ];

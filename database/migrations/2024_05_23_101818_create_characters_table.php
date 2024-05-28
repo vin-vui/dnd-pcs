@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('speed')->default(30);
             $table->integer('hit_dice')->default(8);
             $table->enum('spellcasting_ability', ['intelligence', 'wisdom', 'charisma'])->nullable();
+            $table->text('notes')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
