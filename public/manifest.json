@@ -1,0 +1,40 @@
+{
+  "background_color": "#212121",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Hero Companion",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "Hero Companion",
+  "start_url": "https://herocompanion.vinvui.com/",
+  "theme_color": "#212121",
+  "icons": [
+    {
+      "src": "https://herocompanion.vinvui.com/assets/logo/logo52.png",
+      "type": "image/png",
+      "sizes": "52x52",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "https://herocompanion.vinvui.com/assets/logo/logo148.png",
+      "type": "image/png",
+      "sizes": "148x148",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "https://herocompanion.vinvui.com/assets/logo/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "https://herocompanion.vinvui.com/assets/logo/logo1024.png",
+      "type": "image/png",
+      "sizes": "1024x1024",
+      "purpose": "maskable any"
+    }
+  ],
+  "lang": "fr",
+  "url": "https://herocompanion.vinvui.com/",
+  "manifestUrl": "https://herocompanion.vinvui.com/manifest.json"
+}
