@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="theme-color" content="#12121A">
+        <meta name="theme-color" content="#212121">
         <meta name="author" content="vinvui">
 
         <link rel="canonical" href="https://herocompanion.vinvui.com/">
@@ -22,7 +22,7 @@
         <meta property="og:image:width" content="512">
         <meta property="og:image:height" content="512">
 
-        <meta name="msapplication-TileColor" content="#000000">
+        <meta name="msapplication-TileColor" content="#212121">
         <meta name="msapplication-TileImage" content="https://herocompanion.vinvui.com/assets/logo/logo@512.png">
 
         <link rel="icon" type="image/png" sizes="52x52" href="https://herocompanion.vinvui.com/assets/logo/logo@52.png">
@@ -59,5 +59,7 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+        <pwa-update></pwa-update>
     </body>
 </html>
