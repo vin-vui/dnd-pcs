@@ -5,7 +5,7 @@
             <form @submit.prevent="submit" class="py-12 px-4 flex flex-col gap-4">
                 <v-card v-for="skill in character.skills" :key="skill.id">
                     <v-card-title>{{ $t(`skills.${skill.name}`) }}</v-card-title>
-                    <div class="flex justify-around">
+                    <div class="flex justify-around -mb-4">
                         <v-checkbox v-model="form.skills[skill.id].proficiency" label="Maîtrise" @change="onProficiencyChange(skill.id)"></v-checkbox>
                         <v-checkbox v-model="form.skills[skill.id].expertise" label="Expertise" @change="onExpertiseChange(skill.id)"></v-checkbox>
                     </div>
@@ -22,13 +22,11 @@
 </template>
 
 <script>
-import InputError from '@/Components/InputError.vue';
 import Menu from '@/Components/Menu.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 
 export default {
     components: {
-        InputError,
         Menu,
         VNumberInput,
     },

@@ -40,13 +40,11 @@
 </template>
 
 <script>
-import InputError from '@/Components/InputError.vue';
 import Menu from '@/Components/Menu.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 
 export default {
     components: {
-        InputError,
         Menu,
         VNumberInput,
     },
