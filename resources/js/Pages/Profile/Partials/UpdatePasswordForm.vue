@@ -40,7 +40,7 @@ const updatePassword = () => {
 <template>
     <FormSection @submitted="updatePassword">
         <template #title>
-            Update Password
+            Mise à jour du mot de passe
         </template>
 
         <template #description>
@@ -49,52 +49,31 @@ const updatePassword = () => {
 
         <template #form>
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="current_password" value="Current Password" />
-                <TextInput
-                    id="current_password"
-                    ref="currentPasswordInput"
-                    v-model="form.current_password"
+                <v-text-field label="Mot de passe actuel" variant="outlined" v-model="form.current_password"
                     type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="current-password"
-                />
-                <InputError :message="form.errors.current_password" class="mt-2" />
+                    autocomplete="new-password"
+                    :error-messages="form.errors.current_password"></v-text-field>
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="password" value="New Password" />
-                <TextInput
-                    id="password"
-                    ref="passwordInput"
-                    v-model="form.password"
+                <v-text-field label="Nouveau mot de passe" variant="outlined" v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
-                />
-                <InputError :message="form.errors.password" class="mt-2" />
+                    :error-messages="form.errors.password"></v-text-field>
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
+                <v-text-field label="Confirmer le mot de passe" variant="outlined" v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
-                />
-                <InputError :message="form.errors.password_confirmation" class="mt-2" />
+                    :error-messages="form.errors.password_confirmation"></v-text-field>
             </div>
         </template>
 
         <template #actions>
-            <ActionMessage :on="form.recentlySuccessful" class="me-3">
-                Saved.
-            </ActionMessage>
-
-            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
-            </PrimaryButton>
+            <v-btn :disabled="form.processing" :loading="form.processing" color="indigo-darken-3" size="x-large" variant="flat" block type="submit">
+                enregistrer
+            </v-btn>
         </template>
     </FormSection>
 </template>

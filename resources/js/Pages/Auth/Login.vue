@@ -1,12 +1,7 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import AuthenticationCard from '@/Components/AuthenticationCard.vue';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -30,8 +25,6 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Log in" />
-
     <AuthenticationCard>
         <template #logo>
             <AuthenticationCardLogo />
@@ -43,48 +36,49 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
+                <v-text-field label="Email" variant="outlined" v-model="form.email"
                     autofocus
                     autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
+                    :error-messages="form.errors.email"></v-text-field>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
+                <v-text-field label="Mot de passe" variant="outlined" v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
-                    required
                     autocomplete="current-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
+                    :error-messages="form.errors.password"></v-text-field>
             </div>
 
             <div class="block mt-4">
                 <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                    <v-checkbox v-model="form.remember" label="Se souvenir de moi"></v-checkbox>
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
+            <div class="flex flex-col items-center justify-end mt-4">
+                <v-btn :disabled="form.processing" :loading="form.processing" color="indigo-darken-3" size="x-large" variant="flat" block type="submit">
+                    me connecter
+                </v-btn>
+                <v-spacer class="pt-4 mb-4 border-b w-full"></v-spacer>
+                <v-btn class="text-none" color="grey-lighten-3" size="large" variant="outlined" block @click="register">
+                    Je n'ai pas encore de compte
+                </v-btn>
+                <v-btn v-if="canResetPassword" class="text-none mt-4" color="red-lighten-3" size="large" variant="text" block @click="passwordRequest">
+                    J'ai oublié mon mot de passe
+                </v-btn>
             </div>
         </form>
     </AuthenticationCard>
 </template>
+<script>
+export default {
+    methods: {
+        register() {
+            this.$inertia.visit(route('register'));
+        },
+        passwordRequest() {
+            this.$inertia.visit(route('password.request'));
+        },
+    },
+};
+</script>

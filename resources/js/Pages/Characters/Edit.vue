@@ -3,20 +3,30 @@
         <Menu :curent="curent"></Menu>
         <v-main>
             <form @submit.prevent="submit" class="py-12 px-4 flex flex-col gap-4">
-                <v-number-input control-variant="split" label="Niveau" variant="outlined" v-model="form.level"
-                    :error-messages="form.errors.level"></v-number-input>
-                <v-number-input control-variant="split" label="Classe d'armure" variant="outlined"
-                    v-model="form.armor_class" :error-messages="form.errors.armor_class"></v-number-input>
-                <v-number-input control-variant="split" label="Points de vie maximum" variant="outlined"
-                    v-model="form.max_hit_points" :error-messages="form.errors.max_hit_points"></v-number-input>
-                <v-number-input control-variant="split" label="Vitesse" variant="outlined" v-model="form.speed"
-                    :error-messages="form.errors.speed"></v-number-input>
-                <v-select label="Caractéristique de sorts" :items="abilities" item-value="value" item-title="text"
-                    variant="outlined" v-model="form.spellcasting_ability"
-                    :error-messages="form.errors.spellcasting_ability"></v-select>
-                <v-select label="Dés de vie" :items="dices" variant="outlined" v-model="form.hit_dice"
-                    :error-messages="form.errors.hit_dice"></v-select>
-                <v-btn :disabled="loading" :loading="loading" color="indigo-darken-3" size="x-large" variant="flat" block @click="submit">
+                <div class="flex items-center gap-4">
+                    <v-avatar color="surface-variant" v-if="preview" size="100" class="-mt-6">
+                        <v-img :src="preview"></v-img>
+                    </v-avatar>
+                    <v-avatar color="surface-variant" v-if="!preview" size="100" class="-mt-6">
+                        <v-img :src="character.image"></v-img>
+                    </v-avatar>
+                    <v-file-input clearable label="Changer l'avatar" variant="outlined" counter show-size
+                        ref="photo" @change="previewImg" accept="image/jpeg, image/png, image/svg, image/webp"
+                        :error-messages="form.errors.image">
+                    </v-file-input>
+                </div>
+                <v-text-field label="Nom" variant="outlined" v-model="form.name"
+                    :error-messages="form.errors.name"></v-text-field>
+                <v-text-field label="Race" variant="outlined" v-model="form.race"
+                    :error-messages="form.errors.race"></v-text-field>
+                <v-text-field label="Classe" variant="outlined" v-model="form.class"
+                    :error-messages="form.errors.class"></v-text-field>
+                <v-text-field label="Historique" variant="outlined" v-model="form.background"
+                    :error-messages="form.errors.background"></v-text-field>
+                <v-select label="Alignement" :items="alignments" variant="outlined" v-model="form.alignment"
+                    :error-messages="form.errors.alignment"></v-select>
+                <v-btn :disabled="form.processing" :loading="form.processing" color="indigo-darken-3" size="x-large"
+                    variant="flat" block type="submit">
                     Valider
                 </v-btn>
                 <v-btn class="text-none" color="red-lighten-3" size="large" variant="outlined" block @click="back">

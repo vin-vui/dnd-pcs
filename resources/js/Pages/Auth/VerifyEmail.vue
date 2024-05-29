@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthenticationCard from '@/Components/AuthenticationCard.vue';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
     status: String,
@@ -36,17 +35,16 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resend Verification Email
-                </PrimaryButton>
-
+                <v-btn :disabled="form.processing" :loading="form.processing" color="indigo-darken-3" size="x-large" variant="flat" block type="submit">
+                    renvoyer l'email de vérification
+                </v-btn>
                 <div>
                     <Link
                         :href="route('profile.show')"
                         class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                     >
-                        Edit Profile</Link>
-
+                        Edit Profile
+                    </Link>
                     <Link
                         :href="route('logout')"
                         method="post"

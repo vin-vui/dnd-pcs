@@ -1,12 +1,7 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import AuthenticationCard from '@/Components/AuthenticationCard.vue';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 
 const form = useForm({
     name: '',
@@ -24,8 +19,6 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Register" />
-
     <AuthenticationCard>
         <template #logo>
             <AuthenticationCardLogo />
@@ -33,56 +26,28 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
+                <v-text-field label="Pseudo" variant="outlined" v-model="form.name"
                     autofocus
-                    autocomplete="name"
-                />
-                <InputError class="mt-2" :message="form.errors.name" />
+                    :error-messages="form.errors.name"></v-text-field>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
+                <v-text-field label="Email" variant="outlined" v-model="form.email"
+                    :error-messages="form.errors.email"></v-text-field>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
+                <v-text-field label="Mot de passe" variant="outlined" v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
-                    required
                     autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
+                    :error-messages="form.errors.password"></v-text-field>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
+                <v-text-field label="Confirmer le mot de passe" variant="outlined" v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
-                    required
                     autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                    :error-messages="form.errors.password_confirmation"></v-text-field>
             </div>
 
             <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
@@ -98,15 +63,24 @@ const submit = () => {
                 </InputLabel>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
+            <div class="flex flex-col items-center justify-end mt-4">
+                <v-btn :disabled="form.processing" :loading="form.processing" color="indigo-darken-3" size="x-large" variant="flat" block type="submit">
+                    m'enregistrer
+                </v-btn>
+                <v-spacer class="pt-4 mb-4 border-b w-full"></v-spacer>
+                <v-btn class="text-none" color="grey-lighten-3" size="large" variant="outlined" block @click="login">
+                    J'ai déjà un compte
+                </v-btn>
             </div>
         </form>
     </AuthenticationCard>
 </template>
+<script>
+export default {
+    methods: {
+        login() {
+            this.$inertia.visit(route('login'));
+        },
+    },
+};
+</script>

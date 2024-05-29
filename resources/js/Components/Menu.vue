@@ -27,7 +27,8 @@ export default {
             navigation: [
                 { title: 'Mes Personnages', onclick: this.allCharacters },
                 { title: 'Nouveau Personnage', onclick: this.createCharacter },
-                { title: 'Paramètres', onclick: '' },
+                { title: 'Paramètres', onclick: this.userInformations },
+                { title: 'Me Déconnecter', onclick: this.logout },
             ]
         };
     },
@@ -40,6 +41,12 @@ export default {
         },
         allCharacters() {
             this.$inertia.visit(route('characters.index'));
+        },
+        logout() {
+            this.$inertia.post(route('logout'));
+        },
+        userInformations() {
+            this.$inertia.visit(route('profile.show'));
         }
     }
 };
