@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('proficiency')->default(false);
             $table->integer('score')->default(8);
             $table->integer('bonus')->default(0);
             $table->foreignId('character_id')->constrained('characters')->onDelete('cascade');

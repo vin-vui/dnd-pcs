@@ -19,6 +19,7 @@ class CharacterController extends Controller
     public function show(Character $character)
     {
         $character = $character->load('skills', 'attributes');
+
         return Inertia::render('Characters/Show', compact('character'));
     }
 
@@ -109,8 +110,6 @@ class CharacterController extends Controller
     {
         $data = $request->validate([
             'attributes' => 'required|array',
-            'attributes.*.score' => 'required|integer',
-            'attributes.*.bonus' => 'required|integer',
         ]);
 
         foreach ($data['attributes'] as $id => $attribute) {
@@ -119,6 +118,7 @@ class CharacterController extends Controller
                 $characterAttribute->update([
                     'score' => $attribute['score'],
                     'bonus' => $attribute['bonus'],
+                    'proficiency' => $attribute['proficiency'],
                 ]);
             }
         }

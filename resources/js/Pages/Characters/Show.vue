@@ -162,7 +162,7 @@
                                         <v-card class="border px-1 rounded-md text-gray-300">{{ getFirstThreeLetters($t(`attributes.${attribute.name}`)) }}</v-card>
                                     </div>
                                     <div class="h-full flex flex-col justify-center items-center">
-                                        <div class="font-bold text-4xl">{{ calculateAttributeModifier(attribute.score, attribute.bonus) }}</div>
+                                        <div class="font-bold text-4xl">{{ calculateAttributeModifier(attribute) }}</div>
                                     </div>
                                     <div class="absolute inset-x-0 -bottom-3 flex justify-center ">
                                         <v-card class="border px-2 rounded-md text-gray-400">{{ calculateSavingThrowBonus(attribute) }}</v-card>
@@ -291,7 +291,7 @@ export default {
         calculateSpellModifier(character, includeBase) {
             const proficiency = this.calculateProficiency(character);
             const attribute = this.findAttribute(character, character.spellcasting_ability);
-            const attributeModifier = attribute ? this.calculateAttributeModifier(attribute.score, attribute.bonus) : 0;
+            const attributeModifier = attribute ? this.calculateAttributeModifier(attribute) : 0;
             return (includeBase ? 8 : 0) + proficiency + attributeModifier;
         },
         calculateSpellSaveDC(character) {
@@ -306,17 +306,17 @@ export default {
         findSkill(character, skillName) {
             return character.skills.find(skill => skill.skill_name.toLowerCase() === skillName.toLowerCase());
         },
-        calculateAttributeModifier(score, bonus = 0) {
-            return Math.floor(((score + bonus) - 10) / 2);
+        calculateAttributeModifier(attribute) {
+            return Math.floor(((attribute.score + attribute.bonus) - 10) / 2);
         },
         calculateSavingThrowBonus(attribute) {
-            const attributeModifier = this.calculateAttributeModifier(attribute.score, attribute.bonus);
+            const attributeModifier = this.calculateAttributeModifier(attribute);
             const proficiencyBonus = attribute.proficiency ? this.calculateProficiency(this.character) : 0;
             return attributeModifier + proficiencyBonus;
         },
         calculateSkillBonus(skill) {
             const attribute = this.findAttribute(this.character, skill.base_attribute);
-            const attributeModifier = this.calculateAttributeModifier(attribute.score, attribute.bonus);
+            const attributeModifier = this.calculateAttributeModifier(attribute);
             const proficiencyBonus = skill.proficiency ? this.calculateProficiency(this.character) : 0;
             const expertiseBonus = skill.expertise ? this.calculateProficiency(this.character) : 0;
             return attributeModifier + proficiencyBonus + expertiseBonus;

@@ -18,12 +18,12 @@ class Character extends Model
         static::created(function ($character)
         {
             $defaultAttributes = [
-                ['name' => 'strength', 'score' => 8, 'bonus' => 0],
-                ['name' => 'dexterity', 'score' => 8, 'bonus' => 0],
-                ['name' => 'constitution', 'score' => 8, 'bonus' => 0],
-                ['name' => 'intelligence', 'score' => 8, 'bonus' => 0],
-                ['name' => 'wisdom', 'score' => 8, 'bonus' => 0],
-                ['name' => 'charisma', 'score' => 8, 'bonus' => 0],
+                ['name' => 'strength', 'score' => 8, 'bonus' => 0, 'proficiency' => false],
+                ['name' => 'dexterity', 'score' => 8, 'bonus' => 0, 'proficiency' => false],
+                ['name' => 'constitution', 'score' => 8, 'bonus' => 0, 'proficiency' => false],
+                ['name' => 'intelligence', 'score' => 8, 'bonus' => 0, 'proficiency' => false],
+                ['name' => 'wisdom', 'score' => 8, 'bonus' => 0, 'proficiency' => false],
+                ['name' => 'charisma', 'score' => 8, 'bonus' => 0, 'proficiency' => false],
             ];
 
             foreach ($defaultAttributes as $attribute) {

@@ -10,7 +10,7 @@ class Attribute extends Model
     use HasFactory;
 
     protected $fillable = [
-        'character_id', 'name', 'score', 'bonus'
+        'character_id', 'name', 'proficiency', 'score', 'bonus'
     ];
 
     public function character()

@@ -3,7 +3,7 @@
         <Menu :curent="curent"></Menu>
         <v-main>
             <form @submit.prevent="submit" class="py-12 px-4 flex flex-col gap-4">
-                <v-card v-for="skill in character.skills" :key="skill.id">
+                <v-card v-for="skill in character.skills" :key="skill.id" class="border">
                     <v-card-title>{{ $t(`skills.${skill.name}`) }}</v-card-title>
                     <div class="flex justify-around -mb-4">
                         <v-checkbox v-model="form.skills[skill.id].proficiency" label="Maîtrise" @change="onProficiencyChange(skill.id)"></v-checkbox>
