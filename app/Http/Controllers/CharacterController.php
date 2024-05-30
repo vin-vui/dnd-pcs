@@ -122,8 +122,6 @@ class CharacterController extends Controller
                 ]);
             }
         }
-
-        return redirect()->route('characters.show', $character);
     }
 
     public function editSkill(Character $character)
@@ -147,8 +145,6 @@ class CharacterController extends Controller
                 ]);
             }
         }
-
-        return redirect()->route('characters.show', $character);
     }
 
     public function updateNotes(Request $request, Character $character)

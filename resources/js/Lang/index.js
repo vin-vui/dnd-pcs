@@ -40,6 +40,7 @@ const messages = {
             chaotic_evil: 'Chaotique Mauvais',
         },
         notesSavedSuccessfully: 'Notes enregistrées avec succès',
+        savedSuccessfully: '🫡 Sauvegardé !'
     },
     en: {
         skills: {
@@ -82,6 +83,7 @@ const messages = {
             chaotic_evil: 'Chaotic Evil',
         },
         notesSavedSuccessfully: 'Notes saved successfully',
+        savedSuccessfully: 'Saved !'
     }
 };
 
